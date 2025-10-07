@@ -40,7 +40,7 @@ export function SiteHeader() {
                                 width={150}
                                 height={60}
                                 alt="Starliner Dream Tours"
-                                className="h-7 w-auto md:h-14"
+                                className="h-7 w-auto sm:h-10 md:h-14"
                                 priority
                             />
                         </Link>
