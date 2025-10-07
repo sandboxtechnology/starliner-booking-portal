@@ -1,9 +1,8 @@
 "use client"
 
-import type React from "react"
-
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import type React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 export function SiteHeader() {
@@ -17,8 +16,8 @@ export function SiteHeader() {
 
     return (
         <header className="sticky top-0 z-50 border-b border-border/50 glass-effect shadow-soft">
-            <div className="mx-auto max-w-7xl px-4 py-3">
-                <div className="flex items-center justify-center">
+            <div className="mx-auto max-w-7xl px-4 py-5">
+                <div className="flex items-center justify-start">
                     <Link href="/" aria-label="Starline Dream Tours">
                         <Image src="https://starlinerdreamtours.com/wp-content/uploads/2025/08/large_logo.png" alt="Logo" width={150} height={150}></Image>
                     </Link>
