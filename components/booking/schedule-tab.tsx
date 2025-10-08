@@ -30,20 +30,17 @@ export function ScheduleTab({
     monthOffset,
     setMonthOffset,
 }: ScheduleTabProps) {
-    // Define state
-    const [blockedDates, setBlockedDates] = useState<Array<any>>([]);
+    const [blockedDates, setBlockedDates] = useState<Array<any>>([])
 
-    // Init single tour
     useEffect(() => {
         async function fetchData() {
-            // Fetch disabled dates
             const { data: disabledDates } = await apiRequest<any>("local", "/api/block_days/display", {
                 method: "POST"
-            });
-            setBlockedDates(disabledDates || []);
+            })
+            setBlockedDates(disabledDates || [])
         }
-        fetchData();
-    }, []);
+        fetchData()
+    }, [])
 
     // Generate available dates
     const availableDates = useMemo(() => {
@@ -63,7 +60,7 @@ export function ScheduleTab({
         const month = currentMonth.getMonth()
         const firstDay = new Date(year, month, 1)
         const lastDay = new Date(year, month + 1, 0)
-        const days = [];
+        const days = []
         const startWeekday = firstDay.getDay()
         for (let i = 0; i < startWeekday; i++) {
             days.push(null)
@@ -74,29 +71,40 @@ export function ScheduleTab({
         return days
     }, [currentMonth])
 
+    // Helper: get title for blocked date
+    const getBlockedTitle = (d: Date): string | null => {
+        for (const { title, start_date, end_date } of blockedDates) {
+            const start = new Date(start_date)
+            const end = new Date(end_date)
+            start.setHours(0, 0, 0, 0)
+            end.setHours(0, 0, 0, 0)
+            if (d >= start && d <= end) {
+                return title;
+            }
+        }
+        return null;
+    }
+
     // Check if date is disabled
     const isDisabledDate = (d: Date) => {
-        const now = new Date();
-        now.setHours(0, 0, 0, 0);
-
-        const dayKey = d.toDateString();
+        const now = new Date()
+        now.setHours(0, 0, 0, 0)
+        const dayKey = d.toDateString()
 
         // Condition 1: Past dates or unavailable dates
-        const isUnavailable = d < now || !availableDates.has(dayKey);
+        const isUnavailable = d < now || !availableDates.has(dayKey)
 
         // Condition 2: Blocked date ranges
         const isBlocked = blockedDates.some(({ start_date, end_date }) => {
-            const start = new Date(start_date);
-            const end = new Date(end_date);
-            start.setHours(0, 0, 0, 0);
-            end.setHours(0, 0, 0, 0);
-            return d >= start && d <= end;
-        });
+            const start = new Date(start_date)
+            const end = new Date(end_date)
+            start.setHours(0, 0, 0, 0)
+            end.setHours(0, 0, 0, 0)
+            return d >= start && d <= end
+        })
 
-        // Return true if either condition is met
-        return isUnavailable || isBlocked;
-    };
-
+        return isUnavailable || isBlocked
+    }
 
     return (
         <Card className="bg-card shadow-soft border-border/50">
@@ -128,6 +136,7 @@ export function ScheduleTab({
                             <ChevronRight className="h-5 w-5" />
                         </button>
                     </div>
+
                     <div className="grid grid-cols-7 gap-px bg-border/30">
                         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
                             <div
@@ -137,21 +146,24 @@ export function ScheduleTab({
                                 {d}
                             </div>
                         ))}
+
                         {daysInMonth.map((d, idx) => {
                             if (!d) return <div key={idx} className="h-12 bg-card" />
-                            const disabled = isDisabledDate(d)
-                            const selected = !!selectedDate && d.toDateString() === selectedDate.toDateString()
+                            const disabled = isDisabledDate(d);
+                            const selected = !!selectedDate && d.toDateString() === selectedDate.toDateString();
+                            const blockedTitle = getBlockedTitle(d);
                             return (
                                 <button
                                     key={d.toISOString()}
                                     onClick={() => {
                                         if (!disabled) {
-                                            setSelectedDate(d)
-                                            setTimeSlot("")
+                                            setSelectedDate(d);
+                                            setTimeSlot("");
                                         }
                                     }}
+                                    title={disabled && blockedTitle ? blockedTitle : ""}
                                     className={cn(
-                                        "cursor-pointer h-12 w-full bg-card text-sm font-medium transition-smooth",
+                                        "cursor-pointer h-12 w-full bg-card text-sm font-medium transition-smooth relative",
                                         "hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
                                         disabled && "cursor-not-allowed text-muted-foreground/30 hover:bg-card",
                                         selected && "bg-primary text-primary-foreground hover:bg-primary/90 font-bold shadow-sm",
@@ -165,29 +177,32 @@ export function ScheduleTab({
                         })}
                     </div>
                 </div>
-                {timeSlotList && timeSlotList.length > 0 && <div className="space-y-3">
-                    <Label className="text-base font-semibold">Available Time Slots</Label>
-                    <div className={`grid grid-cols-2 gap-3 sm:grid-cols-${timeSlotList.length}`}>
-                        {timeSlotList.map((t) => {
-                            const active = timeSlot === t;
-                            return (
-                                <button
-                                    key={t}
-                                    onClick={() => setTimeSlot(t)}
-                                    className={cn(
-                                        "cursor-pointer rounded-lg border-2 px-4 py-3 text-sm font-semibold shadow-sm transition-smooth",
-                                        active
-                                            ? "bg-primary text-primary-foreground border-primary shadow-md scale-105"
-                                            : "bg-card border-border/50 hover:border-primary/50 hover:bg-primary/5",
-                                    )}
-                                    aria-pressed={active}
-                                >
-                                    {t}
-                                </button>
-                            )
-                        })}
+
+                {timeSlotList && timeSlotList.length > 0 && (
+                    <div className="space-y-3">
+                        <Label className="text-base font-semibold">Available Time Slots</Label>
+                        <div className={`grid grid-cols-2 gap-3 sm:grid-cols-${timeSlotList.length}`}>
+                            {timeSlotList.map((t) => {
+                                const active = timeSlot === t
+                                return (
+                                    <button
+                                        key={t}
+                                        onClick={() => setTimeSlot(t)}
+                                        className={cn(
+                                            "cursor-pointer rounded-lg border-2 px-4 py-3 text-sm font-semibold shadow-sm transition-smooth",
+                                            active
+                                                ? "bg-primary text-primary-foreground border-primary shadow-md scale-105"
+                                                : "bg-card border-border/50 hover:border-primary/50 hover:bg-primary/5",
+                                        )}
+                                        aria-pressed={active}
+                                    >
+                                        {t}
+                                    </button>
+                                )
+                            })}
+                        </div>
                     </div>
-                </div>}
+                )}
             </CardContent>
         </Card>
     )
