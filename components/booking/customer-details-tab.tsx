@@ -33,10 +33,7 @@ export function CustomerDetailsTab({
     return (
         <Card className="bg-card shadow-soft border-border/50">
             <CardHeader className="space-y-2">
-                <h3 className="text-xl font-bold">Customer Details</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                    Please provide your contact information for booking confirmation.
-                </p>
+                <h3 className="text-[14px]">Please provide your contact information for booking confirmation.</h3>
             </CardHeader>
             <CardContent className="space-y-5">
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">

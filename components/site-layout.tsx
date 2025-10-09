@@ -27,14 +27,11 @@ export function SiteHeader() {
     }
 
     return (
-        <header className="sticky top-0 z-50">
-            <div
-                className="mx-4 my-4 rounded-full border-1 bg-gray-50 px-4 md:px-6"
-                aria-label="Site Header"
-            >
+        <header className="sticky w-[95%] mx-auto top-0 z-50">
+            <div className="mx-4 my-4 rounded-full border-1 bg-gray-50 px-4 md:px-6 shadow" aria-label="Site Header">
                 <div className="mx-auto">
                     <div className="flex h-16 items-center justify-between gap-3 md:h-20">
-                        <Link href="/" className="flex items-center gap-3" aria-label="Homepage">
+                        <Link href="https://starlinerdreamtours.com" className="flex items-center gap-3" aria-label="Homepage">
                             <Image
                                 src="https://starlinerdreamtours.com/wp-content/uploads/2025/08/large_logo.png"
                                 width={150}
@@ -44,14 +41,14 @@ export function SiteHeader() {
                                 priority
                             />
                         </Link>
-                        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+                        <nav className="hidden items-center text-md gap-12 md:flex" aria-label="Primary">
                             {navItems.map((item) => (
                                 <Link
                                     key={item.href}
                                     href={item.href}
                                     className="text-sm font-medium text-foreground/90 transition-colors hover:text-foreground"
                                 >
-                                    <span className="inline-flex font-semibold text-[16px] items-center gap-1">
+                                    <span className="inline-flex font-semibold text-[15px] items-center gap-1 hover:underline">
                                         {item.label}
                                     </span>
                                 </Link>
@@ -65,10 +62,12 @@ export function SiteHeader() {
                                     <Phone className="size-4" />
                                 </Link>
                             </Button>
-                            <Button className="rounded-full h-12 w-auto px-[20px] bg-[#02549e] border-1 border-[#02549e] hover:bg-white hover:text-[#02549e] hover:border-1 hover:border-[#02549e] cursor-pointer">
-                                <span className="font-semibold">Book Now</span>
-                                <MoveRightIcon className="size-4" />
-                            </Button>
+                            <Link href="/">
+                                <Button className="rounded-full h-12 w-auto px-[20px] bg-[#02549e] border-1 border-[#02549e] hover:bg-white hover:text-[#02549e] hover:border-1 hover:border-[#02549e] cursor-pointer">
+                                    <span className="font-semibold">Book Now</span>
+                                    <MoveRightIcon className="size-4" />
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 </div>

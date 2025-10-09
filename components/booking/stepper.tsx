@@ -16,50 +16,52 @@ export function Stepper({ current, className }: StepperProps) {
     ] as const;
 
     return (
-        <nav
-            aria-label="Progress"
-            className={cn("w-full rounded-xl hidden md:block lg:block border border-border/50 bg-card px-4 py-4 shadow-soft", className)}
-        >
-            <ol className="mx-auto flex max-w-4xl flex-wrap text-center items-center gap-2 md:gap-4">
-                {steps.map((s, i) => {
-                    const active = s.id === current
-                    const completed = s.id < current
-                    return (
-                        <li key={s.id} className="flex items-center gap-2">
-                            <div
-                                className={cn(
-                                    "flex items-center gap-2 rounded-full px-3 py-1.5 transition-smooth",
-                                    active && "bg-primary text-primary-foreground shadow-sm",
-                                    completed && "bg-primary/10 text-primary",
-                                    !active && !completed && "bg-muted text-muted-foreground",
-                                )}
-                            >
-                                <span
+        <div className="flex justify-center">
+            <nav
+                aria-label="Progress"
+                className={cn("w-full rounded-xl hidden md:block lg:block border border-border/50 bg-card px-4 py-3 shadow-soft", className)}
+            >
+                <ol className="flex flex-wrap items-center justify-center gap-2 md:gap-4 text-center">
+                    {steps.map((s, i) => {
+                        const active = s.id === current;
+                        const completed = s.id < current;
+                        return (
+                            <li key={s.id} className="flex items-center gap-4">
+                                <div
                                     className={cn(
-                                        "inline-flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold transition-smooth",
-                                        active && "bg-primary-foreground text-primary shadow-sm",
-                                        completed && "bg-primary text-primary-foreground",
-                                        !active && !completed && "bg-background text-foreground",
+                                        "flex items-center gap-2 rounded-full px-2.5 py-1 transition-smooth",
+                                        active && "bg-primary text-primary-foreground shadow-sm",
+                                        completed && "bg-primary/10 text-primary",
+                                        !active && !completed && "bg-muted text-muted-foreground"
                                     )}
-                                    aria-current={active ? "step" : undefined}
                                 >
-                                    {completed ? <Check className="h-4 w-4" /> : s.id}
-                                </span>
-                                <span className="hidden text-sm font-medium sm:inline">{s.label}</span>
-                            </div>
-                            {i < steps.length - 1 && (
-                                <span
-                                    aria-hidden="true"
-                                    className={cn(
-                                        "mx-1 h-0.5 w-6 md:w-10 rounded-full transition-smooth",
-                                        completed ? "bg-primary" : "bg-border",
-                                    )}
-                                />
-                            )}
-                        </li>
-                    )
-                })}
-            </ol>
-        </nav>
+                                    <span
+                                        className={cn(
+                                            "inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold transition-smooth",
+                                            active && "bg-primary-foreground text-primary shadow-sm",
+                                            completed && "bg-primary text-primary-foreground",
+                                            !active && !completed && "bg-background text-foreground"
+                                        )}
+                                        aria-current={active ? "step" : undefined}
+                                    >
+                                        {completed ? <Check className="h-4 w-4" /> : s.id}
+                                    </span>
+                                    <span className="hidden text-xs font-medium sm:inline">{s.label}</span>
+                                </div>
+                                {i < steps.length - 1 && (
+                                    <span
+                                        aria-hidden="true"
+                                        className={cn(
+                                            "mx-1 h-0.5 w-6 md:w-10 rounded-full transition-smooth",
+                                            completed ? "bg-primary" : "bg-border"
+                                        )}
+                                    />
+                                )}
+                            </li>
+                        );
+                    })}
+                </ol>
+            </nav>
+        </div>
     )
 }
