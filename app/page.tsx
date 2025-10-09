@@ -37,7 +37,7 @@ export default function Page() {
     }
 
     return (
-        <main className="mx-auto max-w-7xl space-y-8 px-4 py-5">
+        <main className="mx-auto max-w-7xl sm:space-y-0 md:space-y-8 lg:space-y-8 px-4 py-2">
             <Stepper current={1} />
             <header className="space-y-3 text-center hidden">
                 <h1 className="text-balance text-3xl font-bold text-foreground md:text-3xl lg:text-3xl tracking-tight">
