@@ -77,6 +77,44 @@ export default function BookingsPage() {
         setModelFormLoading(false);
     }
 
+    // Display format time (e.g. 01:00 PM)
+    const formatTime = (time: string): string => {
+        // Normalize whitespace and case
+        time = time.trim().toUpperCase();
+
+        let hours: number;
+        let minutes: string;
+
+        // Case 1: Contains AM/PM
+        if (time.includes("AM") || time.includes("PM")) {
+            // Extract parts
+            const match = time.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+            if (!match) return ""; // invalid format
+
+            hours = parseInt(match[1]);
+            minutes = match[2];
+            const ampm = match[3].toUpperCase();
+
+            // Reformat with leading zeros
+            return `${String(hours).padStart(2, "0")}:${minutes} ${ampm}`;
+        }
+
+        // Case 2: 24-hour format (e.g. 13:00)
+        const [h, m] = time.split(":");
+        hours = parseInt(h);
+        minutes = m || "00";
+
+        let ampm = "AM";
+        if (hours >= 12) {
+            ampm = "PM";
+            if (hours > 12) hours -= 12;
+        } else if (hours === 0) {
+            hours = 12;
+        }
+
+        return `${String(hours).padStart(2, "0")}:${minutes} ${ampm}`;
+    };
+
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
@@ -139,8 +177,8 @@ export default function BookingsPage() {
                                     <th className="pb-3 pr-4">Booking ID</th>
                                     <th className="pb-3 pr-4">Customer</th>
                                     <th className="pb-3 pr-4">Activity</th>
-                                    <th className="pb-3 pr-4">Date & Time</th>
-                                    <th className="pb-3 pr-4">Total Travelers</th>
+                                    <th className="pb-3 pr-4">Date</th>
+                                    <th className="pb-3 pr-4">Time</th>
                                     <th className="pb-3 pr-4">Status</th>
                                     <th className="pb-3 pr-4">Amount</th>
                                     <th className="pb-3">Actions</th>
@@ -158,30 +196,27 @@ export default function BookingsPage() {
                                         key={booking.booking_id}
                                         className="hover:bg-gray-100 transition-smooth"
                                     >
-                                        <td className="py-4 pr-4">
-                                            <span className="font-mono text-sm font-medium">{booking.booking_id}</span>
+                                        <td>
+                                            <span className="font-mono text-sm">{booking.booking_id}</span>
                                         </td>
-                                        <td className="py-4 pr-4">
+                                        <td>
                                             <div>
-                                                <Link href={`/admin_panel/customers/${booking.customer_id}`} className="font-medium text-foreground hover:underline hover:text-primary text-sm">{booking.customer_name}</Link>
+                                                <Link href={`/admin_panel/customers/${booking.customer_id}`} className="text-foreground hover:underline hover:text-primary text-sm">{booking.customer_name}</Link>
                                             </div>
                                         </td>
-                                        <td className="py-4 pr-4">
-                                            <p className="font-medium text-foreground text-sm">{booking.tour_name}</p>
+                                        <td>
+                                            <p className="text-foreground text-sm">{booking.tour_name}</p>
                                         </td>
-                                        <td className="py-4 pr-4">
-                                            <div>
-                                                <p className="font-medium text-foreground text-sm">{new Date(booking.travel_date).toLocaleDateString()}</p>
-                                                <p className="text-sm text-muted-foreground">{booking.travel_time}</p>
-                                            </div>
+                                        <td>
+                                            <p className="text-foreground text-sm">{new Date(booking.travel_date).toLocaleDateString()}</p>
                                         </td>
-                                        <td className="py-4 pr-4">
-                                            <span className="font-medium text-sm">{booking.total_travelers}</span>
+                                        <td>
+                                            <p className="text-sm">{formatTime(booking.travel_time)}</p>
                                         </td>
-                                        <td className="py-4 pr-4">
+                                        <td>
                                             <Badge className={cn("capitalize", getStatusColor(booking.status))}>{booking.status}</Badge>
                                         </td>
-                                        <td className="py-4 pr-4">
+                                        <td>
                                             <span className="font-semibold text-sm text-foreground">${booking.total_price}</span>
                                         </td>
                                         <td className="py-4">
