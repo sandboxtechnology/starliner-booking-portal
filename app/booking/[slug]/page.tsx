@@ -205,7 +205,7 @@ export default function BookingPage({ params }: { params: { slug: string } }) {
     }
 
     return (
-        <main className="mx-auto max-w-7xl space-y-6 px-4 py-1 md:py-1">
+        <main className="mx-auto max-w-7xl md:space-y-6 sm:space-y-2 px-4 py-1 md:py-1">
             <Stepper current={getCurrentStep()} />
             <header className="space-y-2 hidden">
                 <h1 className="text-pretty text-2xl font-semibold md:text-3xl">Complete Your Booking</h1>
