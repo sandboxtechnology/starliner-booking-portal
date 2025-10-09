@@ -88,7 +88,7 @@ export function SiteFooter() {
     return (
         <footer className="border-t border-border/50 bg-secondary/5 mt-12">
             <div className="mx-auto max-w-7xl px-4 py-5">
-                <nav className="flex flex-wrap items-center justify-center gap-6 text-sm mb-3">
+                <nav className="flex flex-wrap items-center justify-center gap-6 text-xs mb-3">
                     <Link href="#" className="text-muted-foreground hover:text-primary transition-smooth font-medium">
                         Terms of Service
                     </Link>
@@ -105,7 +105,7 @@ export function SiteFooter() {
                         Contact Us
                     </Link>
                 </nav>
-                <p className="text-center text-sm text-muted-foreground">
+                <p className="text-center text-xs text-muted-foreground">
                     Copyright © {new Date().getFullYear()} Starline Dream Tours. All Rights Reserved.
                 </p>
             </div>
