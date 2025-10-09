@@ -199,7 +199,7 @@ export function ScheduleTab({
                                     );
                                 })
                             ) : (
-                                <p className="text-sm text-muted-foreground text-center">No slots available</p>
+                                <p className="text-sm text-red-500 text-center">No slots available</p>
                             )}
                         </div>
                     </div>
