@@ -94,8 +94,8 @@ export function BookingSummary({
                 )}
 
                 {totalTravellers > 0 && <div className="flex items-center justify-between pt-4 border-primary/20">
-                    <span className="text-base font-bold text-foreground">Payable Amount</span>
-                    <span className="text-xl font-bold text-primary">{formatPrice(tour.price)}</span>
+                    <span className="text-md font-bold text-foreground">Payable Amount</span>
+                    <span className="text-md font-bold text-primary">{formatPrice(tour.price)}</span>
                 </div>}
             </CardContent>
         </Card>
