@@ -27,7 +27,7 @@ export function SiteHeader() {
     }
 
     return (
-        <header className="sticky w-[95%] mx-auto top-0 z-50">
+        <header className="sticky lg:w-[95%] md:w-[95%] mx-auto top-0 z-50">
             <div className="mx-4 my-4 rounded-full border-1 bg-gray-50 px-4 md:px-6 shadow" aria-label="Site Header">
                 <div className="mx-auto">
                     <div className="flex h-16 items-center justify-between gap-3 md:h-20">
