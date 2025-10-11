@@ -1,22 +1,23 @@
 "use client"
 
-import type React from "react"
-import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { LayoutDashboard, Calendar, Users, MapPin, Settings, Menu, X, LogOut, BarChart3, User2, CalendarX } from "lucide-react"
-import { useState } from "react"
-import { AuthGuard } from "@/components/admin/auth-guard"
-import { logout } from "@/lib/admin-auth"
-import { Button } from "@/components/ui/button"
-import Image from "next/image"
+import type React from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { LayoutDashboard, Calendar, Users, Settings, Menu, X, LogOut, BarChart3, User2, CalendarX, ListChecks } from "lucide-react";
+import { useState } from "react";
+import { AuthGuard } from "@/components/admin/auth-guard";
+import { logout } from "@/lib/admin-auth";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 // Define navigation
 const navigation = [
     { name: "Dashboard", href: "/admin_panel", icon: LayoutDashboard },
     { name: "Bookings", href: "/admin_panel/bookings", icon: Calendar },
+    { name: "Leads", href: "/admin_panel/leads", icon: ListChecks },
     { name: "Customers", href: "/admin_panel/customers", icon: Users },
-    // { name: "Reports", href: "/admin_panel/reports", icon: BarChart3 },
+    { name: "Reports", href: "/admin_panel/reports", icon: BarChart3 },
     { name: "Block Days", href: "/admin_panel/block_days", icon: CalendarX },
     { name: "Settings", href: "/admin_panel/settings", icon: Settings },
 ];
