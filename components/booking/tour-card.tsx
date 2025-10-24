@@ -9,6 +9,13 @@ function formatPrice(n: number) {
     return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(n)
 }
 
+function decodeHtmlEntities(str: string) {
+    if (typeof window === "undefined") return str; // SSR safety
+    const txt = document.createElement("textarea");
+    txt.innerHTML = str;
+    return txt.value;
+}
+
 export function TourCard({ tour }: { tour: Tour }) {
     return (
         <Card className="group overflow-hidden bg-card pt-0 shadow-soft hover:shadow-soft-lg transition-smooth border-border/50">
@@ -25,7 +32,7 @@ export function TourCard({ tour }: { tour: Tour }) {
             </div>
             <CardHeader className="space-y-2 pb-3">
                 <h3 className="text-balance text-lg font-semibold leading-tight group-hover:text-primary transition-smooth">
-                    {tour.title}
+                    {decodeHtmlEntities(tour.title)}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{tour.short_description}</p>
             </CardHeader>
