@@ -11,6 +11,8 @@ import { Badge } from "@/components/ui/badge"
 import { Plus, Search, Eye, Edit, Trash2, Loader } from "lucide-react"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils"
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 export default function BookingsPage() {
     // Define state
@@ -205,7 +207,8 @@ export default function BookingsPage() {
                                             </div>
                                         </td>
                                         <td>
-                                            <p className="text-foreground text-sm">{booking.tour_name}</p>
+                                            <p data-tooltip-id="tooltip-tbl-activity" data-tooltip-content={booking.tour_name} className="text-foreground text-sm">{booking.tour_name.slice(0, 20) + (booking.tour_name.length > 20 ? "..." : "")}</p>
+                                            <Tooltip id="tooltip-tbl-activity" />
                                         </td>
                                         <td>
                                             <p className="text-foreground text-sm">{new Date(booking.travel_date).toLocaleDateString()}</p>

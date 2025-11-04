@@ -15,7 +15,7 @@ import Image from "next/image";
 const navigation = [
     { name: "Dashboard", href: "/admin_panel", icon: LayoutDashboard },
     { name: "Bookings", href: "/admin_panel/bookings", icon: Calendar },
-    { name: "Leads", href: "/admin_panel/leads", icon: ListChecks },
+    // { name: "Leads", href: "/admin_panel/leads", icon: ListChecks },
     { name: "Customers", href: "/admin_panel/customers", icon: Users },
     { name: "Reports", href: "/admin_panel/reports", icon: BarChart3 },
     { name: "Block Days", href: "/admin_panel/block_days", icon: CalendarX },
