@@ -17,7 +17,7 @@ const navigation = [
     { name: "Bookings", href: "/admin_panel/bookings", icon: Calendar },
     // { name: "Leads", href: "/admin_panel/leads", icon: ListChecks },
     { name: "Customers", href: "/admin_panel/customers", icon: Users },
-    { name: "Reports", href: "/admin_panel/reports", icon: BarChart3 },
+    // { name: "Reports", href: "/admin_panel/reports", icon: BarChart3 },
     { name: "Block Days", href: "/admin_panel/block_days", icon: CalendarX },
     { name: "Settings", href: "/admin_panel/settings", icon: Settings },
 ];

@@ -106,11 +106,10 @@ export default function CustomersPage() {
                         <table className="w-full">
                             <thead>
                                 <tr className="border-b border-border text-left text-sm font-medium text-muted-foreground">
-                                    <th className="pb-3 pr-4">Customer ID</th>
+                                    <th className="pb-3 pr-4">ID</th>
                                     <th className="pb-3 pr-4">Name</th>
                                     <th className="pb-3 pr-4">Email</th>
                                     <th className="pb-3 pr-4">Phone</th>
-                                    <th className="pb-3 pr-4">Location</th>
                                     <th className="pb-3 pr-4">Total Bookings</th>
                                     <th className="pb-3 pr-4">Status</th>
                                     <th className="pb-3">Actions</th>
@@ -130,7 +129,7 @@ export default function CustomersPage() {
                                             className="hover:bg-gray-100 transition-smooth"
                                         >
                                             <td className="py-4 pr-4">
-                                                <span className="text-sm">{customer.id}</span>
+                                                <span className="text-sm">SDT{customer.id}</span>
                                             </td>
                                             <td className="py-4 pr-4">
                                                 <p className="text-sm text-foreground">{customer.name}</p>
@@ -140,9 +139,6 @@ export default function CustomersPage() {
                                             </td>
                                             <td className="py-4 pr-4">
                                                 <span className="text-sm text-foreground">{customer.phone}</span>
-                                            </td>
-                                            <td className="py-4 pr-4">
-                                                <span className="text-sm text-foreground">{customer.location}</span>
                                             </td>
                                             <td className="py-4 pr-4">
                                                 <span className="text-sm font-medium">{customer.bookings}</span>
