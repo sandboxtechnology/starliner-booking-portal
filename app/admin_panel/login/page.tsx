@@ -44,6 +44,7 @@ export default function AdminLoginPage() {
         if (requestData?.data?.token) {
             document.cookie = `admin_token=${requestData?.data?.token}; path=/;`;
             document.cookie = `admin_name=${requestData?.data?.user?.name}; path=/;`;
+            document.cookie = `admin_email=${requestData?.data?.user?.email}; path=/;`;
         }
 
         // Redirect to admin panel
