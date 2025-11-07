@@ -84,22 +84,22 @@ export default function BookingPage({ params }: { params: { slug: string } }) {
     if (!singleTour) return notFound();
 
     // Define total travellers
-    const totalTravellers = adults + children812 + children37 + infants
+    const totalTravellers = adults + children812 + children37 + infants;
 
     // Define can proceed
-    const canProceedFromSchedule = !!selectedDate && !!timeSlot
-    const canProceedFromTravelers = totalTravellers >= 1 && totalTravellers <= 10
+    const canProceedFromSchedule = !!selectedDate && !!timeSlot;
+    const canProceedFromTravelers = totalTravellers >= 1 && totalTravellers <= 10;
     const canProceedFromCustomer =
         name.trim().length > 1 &&
         /\S+@\S+\.\S+/.test(email) &&
         phone.trim().length >= 7 &&
         address.trim().length > 0 &&
-        country.trim().length > 0
+        country.trim().length > 0;
     const canProceedFromPayment =
         cardNumber.trim().length >= 15 &&
         cardName.trim().length > 1 &&
         expiryDate.trim().length === 5 &&
-        cvv.trim().length >= 3
+        cvv.trim().length >= 3;
 
     const handleNext = () => {
         if (activeTab === "schedule" && canProceedFromSchedule) {

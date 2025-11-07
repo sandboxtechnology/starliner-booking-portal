@@ -30,17 +30,25 @@ export function ScheduleTab({
     monthOffset,
     setMonthOffset,
 }: ScheduleTabProps) {
-    const [blockedDates, setBlockedDates] = useState<Array<any>>([])
+    // Define state
+    const [blockedDates, setBlockedDates] = useState<Array<any>>([]);
 
     useEffect(() => {
         async function fetchData() {
             const { data: disabledDates } = await apiRequest<any>("local", "/api/block_days/display", {
                 method: "POST"
-            })
-            setBlockedDates(disabledDates || [])
+            });
+            setBlockedDates(disabledDates || []);
         }
-        fetchData()
-    }, [])
+        fetchData();
+    }, []);
+
+    // Helper: parse local date
+    function parseLocalDate(dateStr: string) {
+        if (!dateStr) return null;
+        const [year, month, day] = dateStr.split('-').map(Number);
+        return new Date(year, month - 1, day);
+    }
 
     // Generate available dates
     const availableDates = useMemo(() => {
@@ -56,55 +64,52 @@ export function ScheduleTab({
 
     // Generate days in month
     const daysInMonth = useMemo(() => {
-        const year = currentMonth.getFullYear()
-        const month = currentMonth.getMonth()
-        const firstDay = new Date(year, month, 1)
-        const lastDay = new Date(year, month + 1, 0)
-        const days = []
-        const startWeekday = firstDay.getDay()
+        const year = currentMonth.getFullYear();
+        const month = currentMonth.getMonth();
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const days = [];
+        const startWeekday = firstDay.getDay();
         for (let i = 0; i < startWeekday; i++) {
-            days.push(null)
+            days.push(null);
         }
         for (let d = 1; d <= lastDay.getDate(); d++) {
-            days.push(new Date(year, month, d))
+            days.push(new Date(year, month, d));
         }
-        return days
-    }, [currentMonth])
+        return days;
+    }, [currentMonth]);
 
     // Helper: get title for blocked date
     const getBlockedTitle = (d: Date): string | null => {
         for (const { title, start_date, end_date } of blockedDates) {
-            const start = new Date(start_date)
-            const end = new Date(end_date)
-            start.setHours(0, 0, 0, 0)
-            end.setHours(0, 0, 0, 0)
+            const start = parseLocalDate(start_date);
+            const end = parseLocalDate(end_date);
+            if (!start || !end) continue;
+            start.setHours(0, 0, 0, 0);
+            end.setHours(0, 0, 0, 0);
             if (d >= start && d <= end) {
                 return title;
             }
         }
         return null;
-    }
+    };
 
     // Check if date is disabled
     const isDisabledDate = (d: Date) => {
-        const now = new Date()
-        now.setHours(0, 0, 0, 0)
-        const dayKey = d.toDateString()
-
-        // Condition 1: Past dates or unavailable dates
-        const isUnavailable = d < now || !availableDates.has(dayKey)
-
-        // Condition 2: Blocked date ranges
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        const dayKey = d.toDateString();
+        const isUnavailable = d < now || !availableDates.has(dayKey);
         const isBlocked = blockedDates.some(({ start_date, end_date }) => {
-            const start = new Date(start_date)
-            const end = new Date(end_date)
-            start.setHours(0, 0, 0, 0)
-            end.setHours(0, 0, 0, 0)
-            return d >= start && d <= end
-        })
-
-        return isUnavailable || isBlocked
-    }
+            const start = parseLocalDate(start_date);
+            const end = parseLocalDate(end_date);
+            if (!start || !end) return false;
+            start.setHours(0, 0, 0, 0);
+            end.setHours(0, 0, 0, 0);
+            return d >= start && d <= end;
+        });
+        return isUnavailable || isBlocked;
+    };
 
     return (
         <Card className="bg-card shadow-soft border-border/50">
