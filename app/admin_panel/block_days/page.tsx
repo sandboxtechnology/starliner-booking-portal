@@ -88,7 +88,7 @@ export default function BlockDaysPage() {
     const formatDate = (date: string) => {
         const dateObj = new Date(date);
         const day = dateObj.getDate();
-        const month = dateObj.toLocaleString('default', { month: 'long' });
+        const month = dateObj.toLocaleString('default', { month: 'short' });
         const year = dateObj.getFullYear();
         return `${day} ${month} ${year}`;
     }
