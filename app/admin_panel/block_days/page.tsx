@@ -84,6 +84,15 @@ export default function BlockDaysPage() {
         setModelFormLoading(false);
     }
 
+    // Format date (e.g. 10 Jan 2025)
+    const formatDate = (date: string) => {
+        const dateObj = new Date(date);
+        const day = dateObj.getDate();
+        const month = dateObj.toLocaleString('default', { month: 'long' });
+        const year = dateObj.getFullYear();
+        return `${day} ${month} ${year}`;
+    }
+
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
@@ -154,10 +163,10 @@ export default function BlockDaysPage() {
                                             <span className="text-sm font-medium">{row.title}</span>
                                         </td>
                                         <td className="py-4 pr-4">
-                                            <span className="text-sm font-medium">{new Date(row.start_date).toLocaleDateString()}</span>
+                                            <span className="text-sm font-medium">{formatDate(row.start_date)}</span>
                                         </td>
                                         <td className="py-4 pr-4">
-                                            <span className="text-sm font-medium">{new Date(row.end_date).toLocaleDateString()}</span>
+                                            <span className="text-sm font-medium">{formatDate(row.end_date)}</span>
                                         </td>
                                         <td>
                                             <span className="text-sm font-medium">{row.total_days}</span>
