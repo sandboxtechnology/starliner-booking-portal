@@ -86,12 +86,13 @@ export default function BlockDaysPage() {
 
     // Format date (e.g. 10 Jan 2025)
     const formatDate = (date: string) => {
-        const dateObj = new Date(date);
-        const day = dateObj.getDate();
-        const month = dateObj.toLocaleString('default', { month: 'short' });
-        const year = dateObj.getFullYear();
-        return `${day} ${month} ${year}`;
-    }
+        const [year, month, day] = date.split('-').map(Number);
+        const dateObj = new Date(year, month - 1, day);
+        const dayStr = dateObj.getDate();
+        const monthStr = dateObj.toLocaleString('default', { month: 'short' });
+        const yearStr = dateObj.getFullYear();
+        return `${dayStr} ${monthStr} ${yearStr}`;
+    };
 
     if (loading) {
         return (
@@ -231,7 +232,7 @@ export default function BlockDaysPage() {
                     </div>
                     <DialogFooter>
                         <Button variant="default" className="cursor-pointer" disabled={modelFormLoading} onClick={handleAddDay}>
-                            {modelFormLoading && <Loader className="h-4 w-4 animate-spin" />} 
+                            {modelFormLoading && <Loader className="h-4 w-4 animate-spin" />}
                             {!modelFormLoading && <CheckCircle className="h-4 w-4" />}
                             Add Block Day
                         </Button>
