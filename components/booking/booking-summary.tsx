@@ -12,7 +12,6 @@ function formatPrice(n: number) {
 type BookingSummaryProps = {
     tour: Tour
     selectedDate: Date | null
-    timeSlot: string
     adults: number
     children812: number
     children37: number
@@ -22,7 +21,6 @@ type BookingSummaryProps = {
 export function BookingSummary({
     tour,
     selectedDate,
-    timeSlot,
     adults,
     children812,
     children37,
@@ -52,7 +50,7 @@ export function BookingSummary({
                         <Clock className="h-4 w-4" />
                         <span>Duration</span>
                     </div>
-                    <span className="text-sm font-semibold">{tour.duration_hours} hrs</span>
+                    <span className="text-sm font-semibold">{tour.duration_hours}</span>
                 </div>
 
                 <div className="flex items-center justify-between border-b border-border/50 pb-3">
@@ -60,7 +58,10 @@ export function BookingSummary({
                         <DollarSign className="h-4 w-4" />
                         <span>Price per person</span>
                     </div>
-                    <span className="text-sm font-semibold text-primary">{formatPrice(tour.price)}</span>
+                    <span className="text-sm font-semibold text-primary">
+                        {formatPrice(tour.price)}
+                        {tour.price_prefix && `/${tour.price_prefix}`}
+                    </span>
                 </div>
 
                 {selectedDate && (
@@ -73,13 +74,13 @@ export function BookingSummary({
                     </div>
                 )}
 
-                {timeSlot && (
+                {tour?.tour_start_time && (
                     <div className="flex items-center justify-between border-b border-border/50 pb-3">
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <Clock className="h-4 w-4" />
                             <span>Time</span>
                         </div>
-                        <span className="text-sm font-semibold">{timeSlot}</span>
+                        <span className="text-sm font-semibold">{tour?.tour_start_time}</span>
                     </div>
                 )}
 

@@ -19,12 +19,10 @@ export default function BookingPage({ params }: { params: { slug: string } }) {
     // Define state
     const [loading, setLoading] = useState(false);
     const [singleTour, setSingleTour] = useState<any>({});
-    const [timeSlotList, setTimeslotList] = useState<any>({});
     const [activeTab, setActiveTab] = useState("schedule");
     const [completedTabs, setCompletedTabs] = useState<Set<string>>(new Set(["schedule"]));
     const [monthOffset, setMonthOffset] = useState(0);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-    const [timeSlot, setTimeSlot] = useState<string>("");
     const [adults, setAdults] = useState<number>(1);
     const [children812, setChildren812] = useState<number>(0);
     const [children37, setChildren37] = useState<number>(0);
@@ -50,27 +48,6 @@ export default function BookingPage({ params }: { params: { slug: string } }) {
                 body: JSON.stringify({ slug: params?.slug })
             });
             if (data) setSingleTour(data as Tour[]);
-
-            // Get tour duration
-            const tourDuration = Number(data?.duration_timeslot) || 4;
-
-            // Generate time slot as per tour duration
-            const startTime = '09:00';
-            const endTime = '18:00';
-            const timeSlots: any = [];
-
-            let start = new Date();
-            start.setHours(parseInt(startTime.split(':')[0]), parseInt(startTime.split(':')[1]), 0, 0);
-            let end = new Date();
-            end.setHours(parseInt(endTime.split(':')[0]), parseInt(endTime.split(':')[1]), 0, 0);
-
-            while (start < end) {
-                timeSlots.push(start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-                start.setMinutes(start.getMinutes() + tourDuration * 60);
-            }
-
-            // Update state
-            setTimeslotList(timeSlots);
             setLoading(false);
         }
         fetchData();
@@ -87,7 +64,7 @@ export default function BookingPage({ params }: { params: { slug: string } }) {
     const totalTravellers = adults + children812 + children37 + infants;
 
     // Define can proceed
-    const canProceedFromSchedule = !!selectedDate && !!timeSlot;
+    const canProceedFromSchedule = !!selectedDate;
     const canProceedFromTravelers = totalTravellers >= 1 && totalTravellers <= 10;
     const canProceedFromCustomer =
         name.trim().length > 1 &&
@@ -133,7 +110,7 @@ export default function BookingPage({ params }: { params: { slug: string } }) {
                 body: JSON.stringify({
                     tourId: singleTour?.id,
                     date: selectedDate.toISOString(),
-                    time: timeSlot,
+                    time: singleTour?.tour_start_time,
                     adults,
                     children812,
                     children37,
@@ -217,11 +194,8 @@ export default function BookingPage({ params }: { params: { slug: string } }) {
                         <TabsContent value="schedule">
                             <ScheduleTab
                                 tour={singleTour}
-                                timeSlotList={timeSlotList}
                                 selectedDate={selectedDate}
                                 setSelectedDate={setSelectedDate}
-                                timeSlot={timeSlot}
-                                setTimeSlot={setTimeSlot}
                                 monthOffset={monthOffset}
                                 setMonthOffset={setMonthOffset}
                             />
@@ -284,7 +258,6 @@ export default function BookingPage({ params }: { params: { slug: string } }) {
                     <BookingSummary
                         tour={singleTour}
                         selectedDate={selectedDate}
-                        timeSlot={timeSlot}
                         adults={adults}
                         children812={children812}
                         children37={children37}

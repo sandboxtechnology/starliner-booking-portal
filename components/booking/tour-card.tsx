@@ -37,7 +37,10 @@ export function TourCard({ tour }: { tour: Tour }) {
                 <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{tour.short_description}</p>
             </CardHeader>
             <CardContent className="flex items-center justify-between pb-4">
-                <span className="text-lg font-bold text-primary">{formatPrice(tour.price)}</span>
+                <span className="text-lg font-bold text-primary">
+                    {formatPrice(tour.price)}
+                    {tour.price_prefix && `/${tour.price_prefix}`}
+                </span>
                 <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                     <Clock className="h-4 w-4" />
                     <span>{tour.duration_hours}</span>
