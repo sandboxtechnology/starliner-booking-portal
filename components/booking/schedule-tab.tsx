@@ -118,7 +118,7 @@ export function ScheduleTab({
     return (
         <Card className="bg-card shadow-soft border-border/50">
             <CardHeader className="space-y-2">
-                <h3 className="text-[14px]">Pick an available date. Activity start from {convertTimeToAMPM(tour?.tour_start_time)}.</h3>
+                <h3 className="text-[14px]">Pick an available date. Activity start <span className="text-primary font-semibold">from {convertTimeToAMPM(tour?.tour_start_time)}</span>.</h3>
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="flex flex-col md:flex-row gap-4">
