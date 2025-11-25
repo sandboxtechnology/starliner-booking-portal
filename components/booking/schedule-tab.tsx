@@ -175,7 +175,7 @@ export function ScheduleTab({
                         </div>
                     </div>
                 </div>
-                <h3 className="text-[14px]">Activity start from {tour?.tour_start_time}.</h3>
+                <h3 className="text-[14px] font-semibold">Activity start from {tour?.tour_start_time}.</h3>
             </CardContent>
         </Card>
     )
