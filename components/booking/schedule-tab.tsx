@@ -107,16 +107,17 @@ export function ScheduleTab({
 
     // Convert time in AM and PM
     const convertTimeToAMPM = (time: string) => {
-        const [hours, minutes] = time.split(':');
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        const formattedHours = hours % 12 || 12;
+        const [hours, minutes] = time.split(":");
+        const hoursInt = parseInt(hours);
+        const ampm = hoursInt >= 12 ? "PM" : "AM";
+        const formattedHours = hoursInt % 12 || 12;
         return `${formattedHours}:${minutes} ${ampm}`;
     };
 
     return (
         <Card className="bg-card shadow-soft border-border/50">
             <CardHeader className="space-y-2">
-                <h3 className="text-[14px]">Pick an available date and time slot for your experience. Activity start from {convertTimeToAMPM(tour?.tour_start_time)}.</h3>
+                <h3 className="text-[14px]">Pick an available date. Activity start from {convertTimeToAMPM(tour?.tour_start_time)}.</h3>
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="flex flex-col md:flex-row gap-4">
