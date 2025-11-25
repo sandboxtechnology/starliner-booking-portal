@@ -80,7 +80,7 @@ export function BookingSummary({
                             <Calendar className="h-4 w-4" />
                             <span>Date</span>
                         </div>
-                        <span className="text-sm font-semibold">{selectedDate.toLocaleDateString()} from {convertTimeToAMPM(tour?.tour_start_time)}</span>
+                        <span className="text-sm font-semibold">{selectedDate.toLocaleDateString()} (From {convertTimeToAMPM(tour?.tour_start_time)})</span>
                     </div>
                 )}
 
