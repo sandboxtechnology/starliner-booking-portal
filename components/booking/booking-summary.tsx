@@ -74,16 +74,6 @@ export function BookingSummary({
                     </div>
                 )}
 
-                {tour?.tour_start_time && (
-                    <div className="flex items-center justify-between border-b border-border/50 pb-3">
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Clock className="h-4 w-4" />
-                            <span>Time</span>
-                        </div>
-                        <span className="text-sm font-semibold">{tour?.tour_start_time}</span>
-                    </div>
-                )}
-
                 {totalTravellers > 0 && (
                     <div className="flex items-center justify-between border-b border-border/50 pb-3">
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
