@@ -107,6 +107,7 @@ export function ScheduleTab({
 
     // Convert time in AM and PM
     const convertTimeToAMPM = (time: string) => {
+        if (!time) return "";
         const [hours, minutes] = time.split(":");
         const hoursInt = parseInt(hours);
         const ampm = hoursInt >= 12 ? "PM" : "AM";
