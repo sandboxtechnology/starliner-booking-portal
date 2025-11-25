@@ -60,7 +60,7 @@ export function BookingSummary({
                     </div>
                     <span className="text-sm font-semibold text-primary">
                         {formatPrice(tour.price)}
-                        {tour.price_prefix && `/${tour.price_prefix}`}
+                        {tour.price_prefix && ` ${tour.price_prefix}`}
                     </span>
                 </div>
 
