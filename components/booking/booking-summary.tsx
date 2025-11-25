@@ -26,7 +26,17 @@ export function BookingSummary({
     children37,
     infants
 }: BookingSummaryProps) {
-    const totalTravellers = adults + children812 + children37 + infants
+    const totalTravellers = adults + children812 + children37 + infants;
+
+    // Convert time in AM and PM
+    const convertTimeToAMPM = (time: string) => {
+        if (!time) return "";
+        const [hours, minutes] = time.split(":");
+        const hoursInt = parseInt(hours);
+        const ampm = hoursInt >= 12 ? "PM" : "AM";
+        const formattedHours = hoursInt % 12 || 12;
+        return `${formattedHours}:${minutes} ${ampm}`;
+    };
 
     return (
         <Card className="sticky top-24 h-fit overflow-hidden bg-card shadow-soft-lg pt-0 border-border/50">
@@ -58,7 +68,7 @@ export function BookingSummary({
                         <DollarSign className="h-4 w-4" />
                         <span>Price per person</span>
                     </div>
-                    <span className="text-sm font-semibold text-primary">
+                    <span className="text-sm font-semibold">
                         {formatPrice(tour.price)}
                         {tour.price_prefix && ` ${tour.price_prefix}`}
                     </span>
@@ -70,7 +80,7 @@ export function BookingSummary({
                             <Calendar className="h-4 w-4" />
                             <span>Date</span>
                         </div>
-                        <span className="text-sm font-semibold">{selectedDate.toLocaleDateString()}</span>
+                        <span className="text-sm font-semibold">{selectedDate.toLocaleDateString()} from {convertTimeToAMPM(tour?.tour_start_time)}</span>
                     </div>
                 )}
 
