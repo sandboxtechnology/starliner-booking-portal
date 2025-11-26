@@ -66,7 +66,7 @@ export function BookingSummary({
                 <div className="flex items-center justify-between border-b border-border/50 pb-3">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <DollarSign className="h-4 w-4" />
-                        <span>Price per person</span>
+                        <span>{tour.price_prefix ? `Price per person` : `Price per group`}</span>
                     </div>
                     <span className="text-sm font-semibold">
                         {formatPrice(tour.price)}
