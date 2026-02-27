@@ -11,7 +11,7 @@ import { Button } from "./ui/button";
 const navItems = [
     { href: "https://starlinerdreamtours.com/about-us/", label: "About Us" },
     { href: "https://starlinerdreamtours.com/destinations/", label: "Destinations" },
-    { href: "https://starlinerdreamtours.com/activities/", label: "Activities", caret: true },
+    { href: "https://starlinerdreamtours.com/activities/", label: "Tours", caret: true },
     { href: "https://starlinerdreamtours.com/special-offer/", label: "Offers" },
     { href: "https://starlinerdreamtours.com/blog/", label: "Blog" },
     { href: "https://starlinerdreamtours.com/contact-us/", label: "Contact Us" }
